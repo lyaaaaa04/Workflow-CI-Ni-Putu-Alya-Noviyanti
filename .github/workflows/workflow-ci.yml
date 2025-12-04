@@ -61,6 +61,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: MLProject
-          file: MLProject/docker
+          file: MLProject/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/workflow-ci:latest
