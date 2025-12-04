@@ -1,0 +1,7 @@
+name: student_performance-ci
+
+conda_env: conda.yml
+
+entry_points:
+  main:
+    command: "python modelling.py"
