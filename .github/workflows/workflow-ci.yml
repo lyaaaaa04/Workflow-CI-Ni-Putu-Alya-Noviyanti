@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: 3.11
           activate-environment: mlflow-env
-          environment-file: MLProject/conda.yml
+          environment-file: MLProject/conda.yaml
           auto-activate-base: false
           use-mamba: true
 
