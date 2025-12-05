@@ -29,7 +29,7 @@ os.environ["MLFLOW_TRACKING_USERNAME"] = username
 os.environ["MLFLOW_TRACKING_PASSWORD"] = token
 
 # 2. Load Data
-data = pd.read_csv("StudentsPerformance_preprocessed.csv")
+data = pd.read_csv("MLProject/StudentsPerformance_preprocessed.csv")
 
 X = data.drop([
     'math score', 'reading score', 'writing score',
