@@ -61,7 +61,7 @@ jobs:
       - name: Get latest MLflow run_id
         id: get_run
         run: |
-          RUN_ID=$(mlflow runs list --experiment-name Student_performance_CI --max-results 1 | awk 'NR==3{print $1}')
+          RUN_ID=$(mlflow runs list --experiment-name "student_performance-ci" --max-results 1 | awk 'NR==3{print $1}')
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
       # 8. Install Python dependencies (optional)
