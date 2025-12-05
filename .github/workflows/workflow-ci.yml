@@ -38,9 +38,11 @@ jobs:
           pip install mlflow dagshub
 
       # 6. Run MLflow project
-      - name: Run mlflow project
+      - name: Run MLflow project
+        env:
+          DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
         run: |
-          mlflow run MLProject/ --env-manager=local --experiment-name Student_performance_CI
+          mlflow run MLProject/ --env-manager=local --experiment-name=Student_performance_CI
 
       # 7. Get latest MLflow run_id
       - name: Get latest MLflow run_id
