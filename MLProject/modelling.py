@@ -15,11 +15,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow"
-os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("DAGSHUB_USERNAME")
-os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("DAGSHUB_TOKEN")
+username = os.getenv("DAGSHUB_USERNAME")
+token = os.getenv("DAGSHUB_TOKEN")
 
-mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
+# Validasi
+if not username or not token:
+    raise ValueError("Environment variable DAGSHUB_USERNAME atau DAGSHUB_TOKEN tidak ditemukan!")
+
+# Set MLflow credentials
+os.environ["MLFLOW_TRACKING_USERNAME"] = username
+os.environ["MLFLOW_TRACKING_PASSWORD"] = token
+
+# 1. Inisialisasi Dagshub
+dagshub.init(
+    repo_owner=username,
+    repo_name="SMSML_Alya",
+    mlflow=True
+)
+
+mlflow.set_tracking_uri(f"https://dagshub.com/{username}/SMSML_Alya.mlflow")
 mlflow.set_experiment("student_performance-ci")
 
 # 2. Load Data
