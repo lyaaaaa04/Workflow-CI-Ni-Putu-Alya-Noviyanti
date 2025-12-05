@@ -42,6 +42,11 @@ jobs:
           pip install -r MLProject/requirements.txt
           pip install mlflow dagshub
 
+      - name: Debug Docker Secrets
+        run: |
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}"
+          echo "DOCKER_PASSWORD length=${{ secrets.DOCKER_PASSWORD }}"
+
       # 6. Run MLflow project
       - name: Run MLflow project
         env:
