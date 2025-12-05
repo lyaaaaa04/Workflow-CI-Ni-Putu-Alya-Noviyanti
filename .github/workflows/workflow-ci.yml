@@ -23,7 +23,7 @@ jobs:
       - name: Set up Python 3.13
         uses: actions/setup-python@v4
         with:
-          python-version: '3.12.7'
+          python-version: '3.13'
 
       # 4. Check Env
       - name: Check Env
@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r MLProject/requirements.txt
-          pip install mlflow dagshub
+          pip install --upgrade dagshub mlflow
 
       # 6. Run MLflow project
       - name: Run MLflow project
