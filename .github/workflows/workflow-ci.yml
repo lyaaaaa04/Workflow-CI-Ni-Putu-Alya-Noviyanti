@@ -35,8 +35,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r MLProject/requirements.txt
-          pip install dagshub==0.3.34
-          pip install mlflow==2.13.1
+          pip install mlflow dagshub
 
       # 6. Run MLflow project
       - name: Run MLflow project
