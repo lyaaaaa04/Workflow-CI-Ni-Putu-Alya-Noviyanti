@@ -23,7 +23,14 @@ else:
     print("WARNING: DAGSHUB_TOKEN not found in environment variables")
     
 # 1. Init MLflow + Dagshub
-dagshub.init(repo_owner='lyaaaaa04', repo_name='SMSML_Alya', mlflow=True)
+dagshub.init(
+    repo_owner='lyaaaaa04',
+    repo_name='SMSML_Alya',
+    mlflow=True,
+    token=os.getenv("DAGSHUB_TOKEN"),  
+    host="https://dagshub.com"
+)
+
 mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow")
 mlflow.set_experiment("Experiment Student Performance")
 
