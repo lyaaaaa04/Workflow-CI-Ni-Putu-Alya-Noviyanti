@@ -26,8 +26,7 @@ if not username or not token:
 dagshub.init(
     repo_owner=username,
     repo_name="SMSML_Alya",
-    mlflow=True,
-    token=token  
+    mlflow=True
 )
 
 mlflow.set_tracking_uri(f"https://dagshub.com/{username}/SMSML_Alya.mlflow")
