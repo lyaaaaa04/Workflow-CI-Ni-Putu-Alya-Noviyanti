@@ -21,21 +21,21 @@ if token:
     os.environ["DAGSHUB_API_TOKEN"] = token
 else:
     print("WARNING: DAGSHUB_TOKEN not found in environment variables")
-    
+
 # 1. Init MLflow + Dagshub
 dagshub.init(
     repo_owner='lyaaaaa04',
     repo_name='SMSML_Alya',
     mlflow=True,
-    token=os.getenv("DAGSHUB_TOKEN"),  
+    token=os.getenv("DAGSHUB_TOKEN"),
     host="https://dagshub.com"
 )
 
-mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow")
+mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow/")
 mlflow.set_experiment("Experiment Student Performance")
 
 # 2. Load Data
-data = pd.read_csv("../preprocessing/StudentsPerformance_preprocessed.csv")
+data = pd.read_csv("StudentsPerformance_preprocessed.csv")
 
 X = data.drop([
     'math score', 'reading score', 'writing score',
