@@ -22,15 +22,12 @@ token = os.getenv("DAGSHUB_TOKEN")
 if not username or not token:
     raise ValueError("Environment variable DAGSHUB_USERNAME atau DAGSHUB_TOKEN tidak ditemukan!")
 
-# Set MLflow credentials
-os.environ["MLFLOW_TRACKING_USERNAME"] = username
-os.environ["MLFLOW_TRACKING_PASSWORD"] = token
-
-# 1. Inisialisasi Dagshub
+# 1. Inisialisasi Dagshub dengan token
 dagshub.init(
     repo_owner=username,
     repo_name="SMSML_Alya",
-    mlflow=True
+    mlflow=True,
+    token=token  
 )
 
 mlflow.set_tracking_uri(f"https://dagshub.com/{username}/SMSML_Alya.mlflow")
