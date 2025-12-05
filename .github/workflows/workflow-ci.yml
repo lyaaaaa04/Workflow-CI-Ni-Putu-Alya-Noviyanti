@@ -45,7 +45,7 @@ jobs:
           MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
           MLFLOW_TRACKING_URI: https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow
         run: |
-          mlflow run MLProject/ --env-manager=local --experiment-name=Student_performance_CI
+          mlflow run MLProject/ --env-manager=local --experiment-name=student_performance-ci
 
       # 7. Get latest MLflow run_id
       - name: Get latest MLflow run_id
