@@ -30,9 +30,8 @@ dagshub.init(
     host="https://dagshub.com"
 )
 
-
 mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow")
-mlflow.set_experiment("Experiment Student Performance")
+mlflow.set_experiment("student_performance-ci")
 
 # 2. Load Data
 data = pd.read_csv("StudentsPerformance_preprocessed.csv")
