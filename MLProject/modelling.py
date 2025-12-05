@@ -15,22 +15,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 
-token = os.getenv("DAGSHUB_TOKEN")
+os.environ["MLFLOW_TRACKING_URI"] = "https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow"
+os.environ["MLFLOW_TRACKING_USERNAME"] = os.getenv("DAGSHUB_USERNAME")
+os.environ["MLFLOW_TRACKING_PASSWORD"] = os.getenv("DAGSHUB_TOKEN")
 
-if not token:
-    print("WARNING: DAGSHUB_TOKEN is not found in environment!")
-else:
-    os.environ["DAGSHUB_API_TOKEN"] = token 
-
-# 1. Init Dagshub
-dagshub.init(
-    repo_owner='lyaaaaa04',
-    repo_name='SMSML_Alya',
-    mlflow=True,
-    host="https://dagshub.com"
-)
-
-mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow")
+mlflow.set_tracking_uri(os.environ["MLFLOW_TRACKING_URI"])
 mlflow.set_experiment("student_performance-ci")
 
 # 2. Load Data
