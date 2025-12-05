@@ -17,19 +17,19 @@ import os
 
 token = os.getenv("DAGSHUB_TOKEN")
 
-if token:
-    os.environ["DAGSHUB_API_TOKEN"] = token
+if not token:
+    print("WARNING: DAGSHUB_TOKEN is not found in environment!")
 else:
-    print("WARNING: DAGSHUB_TOKEN not found in environment variables")
+    os.environ["DAGSHUB_API_TOKEN"] = token 
 
-# 1. Init MLflow + Dagshub
+# 1. Init Dagshub
 dagshub.init(
     repo_owner='lyaaaaa04',
     repo_name='SMSML_Alya',
     mlflow=True,
-    token=os.getenv("DAGSHUB_TOKEN"),
     host="https://dagshub.com"
 )
+
 
 mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow/")
 mlflow.set_experiment("Experiment Student Performance")
