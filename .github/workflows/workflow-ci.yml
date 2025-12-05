@@ -35,12 +35,16 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r MLProject/requirements.txt
-          pip install --upgrade dagshub mlflow
+          pip install dagshub==0.3.34
+          pip install mlflow==2.13.1
 
       # 6. Run MLflow project
       - name: Run MLflow project
         env:
           DAGSHUB_TOKEN: ${{ secrets.DAGSHUB_TOKEN }}
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.DAGSHUB_USERNAME }}
+          MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_TOKEN }}
+          MLFLOW_TRACKING_URI: https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow
         run: |
           mlflow run MLProject/ --env-manager=local --experiment-name=Student_performance_CI
 
