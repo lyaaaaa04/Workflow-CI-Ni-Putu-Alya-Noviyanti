@@ -31,7 +31,7 @@ dagshub.init(
 )
 
 
-mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow/")
+mlflow.set_tracking_uri("https://dagshub.com/lyaaaaa04/SMSML_Alya.mlflow")
 mlflow.set_experiment("Experiment Student Performance")
 
 # 2. Load Data
