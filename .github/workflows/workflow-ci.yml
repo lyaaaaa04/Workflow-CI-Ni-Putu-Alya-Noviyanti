@@ -73,6 +73,12 @@ jobs:
           name: trained-model
           path: artifacts/random_forest_model/
 
+      - name: Upload artifacts (plots & report)
+        uses: actions/upload-artifact@v4
+        with:
+          name: metrics-and-analysis
+          path: artifacts/
+
       - name: Get MLflow model path
         id: model_path
         run: |
