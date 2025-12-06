@@ -104,6 +104,11 @@ with mlflow.start_run(run_name="RandomForest-Baseline-Auto"):
     mlflow.log_artifact(roc_path, artifact_path="analysis")
 
     # SAVE MODEL (BEST PRACTICE)
-    mlflow.sklearn.log_model(model, artifact_path="model", input_example=X_train.iloc[:2])
+    mlflow.sklearn.log_model(model, "model")
+    
+    example_path = "example_input.csv"
+    X_train.iloc[:2].to_csv(example_path, index=False)
+    mlflow.log_artifact(example_path, artifact_path="examples")
+
 
     print("\n=== Training selesai dan seluruh artifacts telah diupload ke Dagshub ===")
