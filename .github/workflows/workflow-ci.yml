@@ -70,7 +70,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: trained-model
-          path: MLProject/models/
+          path: artifacts/random_forest_model/
 
       # Debug artifact list
       - name: Debug MLflow artifact list
