@@ -17,12 +17,14 @@ from sklearn.preprocessing import label_binarize
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# 1. SETTING DAGSHUB
+# 1. Setting DagsHub
 username = os.getenv("DAGSHUB_USERNAME")
 token = os.getenv("DAGSHUB_TOKEN")
 
 if not username or not token:
     raise ValueError("Environment variable DAGSHUB_USERNAME atau DAGSHUB_TOKEN tidak ditemukan!")
+
+dagshub.init(repo_owner=username, repo_name="SMSML_Alya", mlflow=True)
 
 mlflow.set_tracking_uri(f"https://dagshub.com/{username}/SMSML_Alya.mlflow")
 mlflow.set_experiment("student_performance-ci")
@@ -39,14 +41,13 @@ X = data.drop(
 )
 y = data['performance_level']
 
-# Train-test split
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, stratify=y, random_state=42
 )
 
 input_example = X_train.iloc[:2]
 
-# 3. MLflow RUN 
+# MLflow RUN 
 with mlflow.start_run(run_name="Baseline RandomForest") as run:
 
     n_estimators = 500
@@ -83,10 +84,10 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
         "f1_score": f1
     })
 
-    # Create artifacts folder 
+    # ARTIFACTS
     os.makedirs("artifacts", exist_ok=True)
 
-    # Confusion Matrix PNG
+    # Confusion Matrix
     cm = confusion_matrix(y_test, y_pred)
     cm_path = "artifacts/confusion_matrix.png"
     plt.figure(figsize=(6,4))
@@ -97,14 +98,14 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
     plt.close()
     mlflow.log_artifact(cm_path, artifact_path="metrics")
 
-    # Classification Report TXT
+    # Classification report
     report_path = "artifacts/classification_report.txt"
     with open(report_path, "w") as f:
         f.write(classification_report(y_test, y_pred))
     mlflow.log_artifact(report_path, artifact_path="metrics")
 
-    # Feature Importance PNG
-    fi = model.feature_importances_
+    # Feature Importance
+    fi = model.feature_importances__
     fi_path = "artifacts/feature_importance.png"
     plt.figure(figsize=(8,5))
     sns.barplot(x=fi, y=X_train.columns)
@@ -114,7 +115,7 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
     plt.close()
     mlflow.log_artifact(fi_path, artifact_path="analysis")
 
-    # ROC Curve Macro avg
+    # ROC Curve
     classes = np.unique(y)
     y_bin = label_binarize(y_test, classes=classes)
 
@@ -140,13 +141,17 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
     plt.close()
     mlflow.log_artifact(roc_path, artifact_path="analysis")
 
-    # Save + Log Model
-    model_dir = "artifacts/random_forest_model"
+    # Model signature
+    from mlflow.models.signature import infer_signature
+    signature = infer_signature(X_train, model.predict(X_train))
+
+    # FINAL: Log model (wajib untuk Docker MLflow)
     mlflow.sklearn.log_model(
         sk_model=model,
-        artifact_path="model"
+        artifact_path="model",
+        input_example=input_example,
+        signature=signature
     )
 
     print(f"Run ID: {run.info.run_id}")
-    print(f"Accuracy: {acc:.4f} | Precision: {prec:.4f} | Recall: {rec:.4f} | F1: {f1:.4f}")
-    print("Model & artifacts berhasil diupload ke MLflow DagsHub!")
+    print("Model sukses diupload ke MLflow!")
