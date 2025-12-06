@@ -145,7 +145,8 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
     mlflow.sklearn.log_model(
         sk_model=model,
         artifact_path="model",
-        input_example=input_example
+        input_example=input_example,
+        registered_model_name=None
     )
 
     print(f"Run ID: {run.info.run_id}")
