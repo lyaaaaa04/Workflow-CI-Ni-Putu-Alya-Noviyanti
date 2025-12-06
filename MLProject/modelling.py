@@ -24,8 +24,6 @@ token = os.getenv("DAGSHUB_TOKEN")
 if not username or not token:
     raise ValueError("Environment variable DAGSHUB_USERNAME atau DAGSHUB_TOKEN tidak ditemukan!")
 
-dagshub.init(repo_owner=username, repo_name="SMSML_Alya", mlflow=True)
-
 mlflow.set_tracking_uri(f"https://dagshub.com/{username}/SMSML_Alya.mlflow")
 mlflow.set_experiment("student_performance-ci")
 
