@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r MLProject/requirements.txt
-          pip install mlflow dagshub
+          pip install dagshub
 
       - name: Debug Docker Secrets
         run: |
