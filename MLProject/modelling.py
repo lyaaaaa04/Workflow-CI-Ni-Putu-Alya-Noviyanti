@@ -142,8 +142,11 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
 
     # Save + Log Model
     model_dir = "artifacts/random_forest_model"
-    mlflow.sklearn.save_model(model, model_dir, input_example=input_example)
-    mlflow.log_artifacts(model_dir, artifact_path="model")
+    mlflow.sklearn.log_model(
+        sk_model=model,
+        artifact_path="model",
+        input_example=input_example
+    )
 
     print(f"Run ID: {run.info.run_id}")
     print(f"Accuracy: {acc:.4f} | Precision: {prec:.4f} | Recall: {rec:.4f} | F1: {f1:.4f}")
