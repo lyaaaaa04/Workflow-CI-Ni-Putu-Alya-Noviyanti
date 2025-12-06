@@ -72,12 +72,6 @@ jobs:
           name: trained-model
           path: artifacts/random_forest_model/
 
-      # Debug artifact list
-      - name: Debug MLflow artifact list
-        run: |
-          echo "Run ID: ${{ steps.get_run.outputs.run_id }}"
-          mlflow artifacts list -r "${{ steps.get_run.outputs.run_id }}"
-
       # 9. Build Docker Model
       - name: Build Docker Image using MLflow
         run: |
