@@ -71,16 +71,16 @@ jobs:
           name: trained-model
           path: MLProject/models/
 
+      - name: Debug MLflow artifact
+        run: |
+          mlflow artifacts list -r ${{ steps.get_run.outputs.run_id }}
+          
       # 9. Build Docker Model
       - name: Build Docker Image using MLflow
         run: |
           mlflow models build-docker \
             -m runs:/${{ steps.get_run.outputs.run_id }}/artifacts/model \
             -n student_model
-            
-      - name: Debug MLflow artifact
-        run: |
-          mlflow artifacts list -r ${{ steps.get_run.outputs.run_id }}
 
       # 10. Log in to Docker Hub
       - name: Log in to Docker Hub
