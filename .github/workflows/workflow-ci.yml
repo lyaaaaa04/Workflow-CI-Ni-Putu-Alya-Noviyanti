@@ -72,7 +72,7 @@ jobs:
           path: MLProject/models/
 
       # 9. Build Docker Model
-      - name: Build Docker using MLflow
+      - name: Build Docker Image using MLflow
         run: |
           mlflow models build-docker \
             -m runs:/${{ steps.get_run.outputs.run_id }}/model \
