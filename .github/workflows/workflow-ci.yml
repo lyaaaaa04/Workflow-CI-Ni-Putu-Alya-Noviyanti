@@ -61,7 +61,7 @@ jobs:
       - name: Get latest MLflow run ID
         id: get_run
         run: |
-          RUN_ID=$(curl -s -u "${{ secrets.DAGSHUB_USERNAME }}:${{ secrets.DAGSHUB_PASSWORD }}" \
+          RUN_ID=$(curl -s -u "${{ secrets.DAGSHUB_USERNAME }}:${{ secrets.DAGSHUB_TOKEN }}" \
             https://dagshub.com/api/v1/repos/lyaaaaa04/SMSML_Alya/mlflow-api/2.0/runs/search \
             | jq -r '.runs[0].run_id')
           echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
