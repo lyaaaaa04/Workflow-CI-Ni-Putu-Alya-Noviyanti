@@ -103,7 +103,7 @@ with mlflow.start_run(run_name="Baseline RandomForest") as run:
     mlflow.log_artifact(report_path, artifact_path="metrics")
 
     # Feature Importance
-    fi = model.feature_importances__
+    fi = model.feature_importances_
     fi_path = "artifacts/feature_importance.png"
     plt.figure(figsize=(8,5))
     sns.barplot(x=fi, y=X_train.columns)
