@@ -73,6 +73,7 @@ jobs:
 
       - name: Debug MLflow artifact
         run: |
+          echo "Run ID: ${{ steps.get_run.outputs.run_id }}"
           mlflow artifacts list -r ${{ steps.get_run.outputs.run_id }}
           
       # 9. Build Docker Model
