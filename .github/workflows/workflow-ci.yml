@@ -73,12 +73,19 @@ jobs:
           name: trained-model
           path: artifacts/random_forest_model/
 
+      - name: Get MLflow model path
+        id: model_path
+        run: |
+          MODEL_PATH=$(mlflow artifacts list -r ${{ steps.get_run.outputs.run_id }} | grep 'model$' | awk '{print $NF}')
+          echo "model_path=$MODEL_PATH" >> $GITHUB_OUTPUT
+          echo "Model path: $MODEL_PATH"
+
       # 9. Build Docker Model
-      - name: Build Docker Image using MLflow
+      - name: Build MLflow Docker Image
         run: |
           mlflow models build-docker \
-            -m "runs:/${{ steps.get_run.outputs.run_id }}/model" \
-            -n student_model
+            -m "${{ steps.model_path.outputs.model_path }}" \
+            -n student_model:latest
 
       # 10. Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -90,7 +97,8 @@ jobs:
       # 11. Tag Docker Image
       - name: Tag Docker Image
         run: |
-          docker tag student_model ${{ secrets.DOCKER_USERNAME }}/workflow-ci:latest
+          docker tag student_model:latest \
+            ${{ secrets.DOCKER_USERNAME }}/workflow-ci:latest
 
       # 12. Push Docker Image
       - name: Push Docker Image to Docker Hub
