@@ -72,9 +72,11 @@ jobs:
           path: MLProject/models/
 
       # 9. Build Docker Model
-      - name: Build Docker Model
+      - name: Build Docker using MLflow
         run: |
-          docker build -t student_model:latest MLProject/
+          mlflow models build-docker \
+            -m runs:/${{ steps.get_run.outputs.run_id }}/model \
+            -n student_model
 
       # 10. Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -86,7 +88,7 @@ jobs:
       # 11. Tag Docker Image
       - name: Tag Docker Image
         run: |
-          docker tag student_model:latest ${{ secrets.DOCKER_USERNAME }}/workflow-ci:latest
+          docker tag student_model ${{ secrets.DOCKER_USERNAME }}/workflow-ci:latest
 
       # 12. Push Docker Image
       - name: Push Docker Image
